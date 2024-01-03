@@ -51,4 +51,17 @@ RSpec.describe Board do
             expect(board.add_piece('X', 'X')).to eq(nil)
         end
     end
+
+    describe '#win?' do
+        it 'checks if player or computer won the game' do
+            board = Board.new
+
+            board.add_piece('A', 'X')
+            board.add_piece('A', 'X')
+            board.add_piece('A', 'X')
+            board.add_piece('A', 'X')
+
+            expect(board.win?).to be true
+        end
+    end
 end
