@@ -18,4 +18,18 @@ RSpec.describe Board do
             expect(board.board.first[0]).to eq('.') 
         end
     end
+
+    describe '#add_piece(column)' do
+        it 'can add a piece to the first column and will stack pieces vertically' do
+            board = Board.new
+
+            board.add_piece('A')
+
+            expect(board.board.last[0]).to eq('X')
+
+            board.add_piece('A')
+
+            expect(board.board[-2][0]).to eq('X')
+        end
+    end
 end
