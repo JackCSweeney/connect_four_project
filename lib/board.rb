@@ -1,3 +1,5 @@
+require 'matrix'
+
 class Board
 
     attr_reader :board
@@ -12,17 +14,44 @@ class Board
     end
 
     def add_piece(column, piece)
-        chosen_column = ('A'..'G').to_a.index(column)
-        counter = 0
-        @board.reverse_each do |row|
-            if row[chosen_column] == '.' && counter < 7
-                row[chosen_column] = piece
-                counter += 7
-            elsif counter == 6
-                puts 'Please select a valid column'
-            else
-                counter += 1
+        range = ("A".."G").to_a
+        if range.any?(column)
+            chosen_column = ('A'..'G').to_a.index(column)
+            rows = board.length - 1
+            
+            while rows >= 0 && @board[rows][chosen_column] != '.'
+                rows -= 1
+            end
+
+            @board[rows][chosen_column] = piece if rows >= 0
+        else
+            nil
+        end
+    end
+
+    def win?
+        @board.each do |row|
+            row.each_cons(4) do |group|
+                if group.join == 'XXXX' || group.join == 'OOOO'
+                    return true
+                end
+            end
+        end
+        
+        @board.transpose.each do |row|
+            row.each_cons(4) do |group|
+                if group.join == 'XXXX' || group.join == 'OOOO'
+                    return true
+                end
             end
         end
     end
 end
+# matrix = []
+        # Matrix.rows(@board).each do |row|
+        #     # matrix << diagonal
+        #     require 'pry';binding.pry
+        # end
+        (0..3) (i=var.length; i--) do
+            (0..4) (j=another_var.length; j--)
+        end
