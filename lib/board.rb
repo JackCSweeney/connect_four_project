@@ -12,13 +12,18 @@ class Board
     end
 
     def add_piece(column, piece)
-        chosen_column = ('A'..'G').to_a.index(column)
-        rows = board.length - 1
-        
-        while rows >= 0 && @board[rows][chosen_column] != '.'
-             rows -= 1
-        end
+        range = ("A".."G").to_a
+        if range.any?(column)
+            chosen_column = ('A'..'G').to_a.index(column)
+            rows = board.length - 1
+            
+            while rows >= 0 && @board[rows][chosen_column] != '.'
+                rows -= 1
+            end
 
-        @board[rows][chosen_column] = piece if rows >= 0
+            @board[rows][chosen_column] = piece if rows >= 0
+        else
+            nil
+        end
     end
 end
