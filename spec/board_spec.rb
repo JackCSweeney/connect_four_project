@@ -19,17 +19,30 @@ RSpec.describe Board do
         end
     end
 
-    describe '#add_piece(column)' do
+    describe '#add_piece(column, piece)' do
         it 'can add a piece to the first column and will stack pieces vertically' do
             board = Board.new
 
-            board.add_piece('A')
+            board.add_piece('A', 'X')
 
             expect(board.board.last[0]).to eq('X')
 
-            board.add_piece('A')
+            board.add_piece('A', 'X')
 
             expect(board.board[-2][0]).to eq('X')
+        end
+
+        it 'will return nil from puts statement when a column is full' do
+            board = Board.new
+
+            board.add_piece('A', 'X')
+            board.add_piece('A', 'X')
+            board.add_piece('A', 'X')
+            board.add_piece('A', 'X')
+            board.add_piece('A', 'X')
+            board.add_piece('A', 'X')
+
+            expect(board.add_piece('A', 'X')).to eq(nil)
         end
     end
 end
