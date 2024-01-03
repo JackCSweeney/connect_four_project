@@ -13,16 +13,12 @@ class Board
 
     def add_piece(column, piece)
         chosen_column = ('A'..'G').to_a.index(column)
-        counter = 0
-        @board.reverse_each do |row|
-            if row[chosen_column] == '.' && counter < 7
-                row[chosen_column] = piece
-                counter += 7
-            elsif counter == 6
-                puts 'Please select a valid column'
-            else
-                counter += 1
-            end
+        rows = board.length - 1
+        
+        while rows >= 0 && @board[rows][chosen_column] != '.'
+             rows -= 1
         end
+
+        @board[rows][chosen_column] = piece if rows >= 0
     end
 end
