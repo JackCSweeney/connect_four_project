@@ -53,7 +53,18 @@ RSpec.describe Board do
     end
 
     describe '#win?' do
-        it 'checks if player or computer won the game' do
+        it 'checks if player or computer won the game horizontally' do
+            board = Board.new
+
+            board.add_piece('A', 'X')
+            board.add_piece('B', 'X')
+            board.add_piece('C', 'X')
+            board.add_piece('D', 'X')
+
+            expect(board.win?).to eq true
+        end
+
+        it 'checks if player or computer won the game vertically' do
             board = Board.new
 
             board.add_piece('A', 'X')
@@ -61,7 +72,7 @@ RSpec.describe Board do
             board.add_piece('A', 'X')
             board.add_piece('A', 'X')
 
-            expect(board.win?).to be true
+            expect(board.win?).to eq true
         end
     end
 end
