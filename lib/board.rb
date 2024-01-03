@@ -1,3 +1,5 @@
+require 'matrix'
+
 class Board
 
     attr_reader :board
@@ -26,4 +28,30 @@ class Board
             nil
         end
     end
+
+    def win?
+        @board.each do |row|
+            row.each_cons(4) do |group|
+                if group.join == 'XXXX' || group.join == 'OOOO'
+                    return true
+                end
+            end
+        end
+        
+        @board.transpose.each do |row|
+            row.each_cons(4) do |group|
+                if group.join == 'XXXX' || group.join == 'OOOO'
+                    return true
+                end
+            end
+        end
+    end
 end
+# matrix = []
+        # Matrix.rows(@board).each do |row|
+        #     # matrix << diagonal
+        #     require 'pry';binding.pry
+        # end
+        (0..3) (i=var.length; i--) do
+            (0..4) (j=another_var.length; j--)
+        end
