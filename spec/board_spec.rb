@@ -44,5 +44,11 @@ RSpec.describe Board do
 
             expect(board.add_piece('A', 'X')).to eq(nil)
         end
+
+        it 'will return nil if column is invalid or out of range' do
+            board = Board.new
+
+            expect(board.add_piece('X', 'X')).to eq(nil)
+        end
     end
 end
