@@ -47,19 +47,19 @@ class Board
         end
     end
 
-    def four_in_a_row_by_row(arr)
-        arr.each do |row|
+    def four_in_a_row_by_row(board)
+        board.each do |row|
             a = row.each_cons(4).find { |a| a.uniq.size == 1 && a.first != '.' }
             return true unless a.nil?        
         end
         nil
     end
+
+    def diagonals(board)
+        (0..board.size-4).map do |i|
+            (0..board.size-1-i).map { |j| board[i+j][j] }
+        end.concat((1..board.first.size-4).map do |j|
+            (0..board.size-j-1).map { |i| board[i][j+i] }
+        end)
+    end
 end
-# matrix = []
-        # Matrix.rows(@board).each do |row|
-        #     # matrix << diagonal
-        #     require 'pry';binding.pry
-        # end
-        # (0..3) (i=var.length; i--) do
-        #     (0..4) (j=another_var.length; j--)
-        # end
