@@ -75,4 +75,17 @@ RSpec.describe Board do
             expect(board.win?).to eq true
         end
     end
+
+    describe '#four_in_a_row_by_row' do
+        it 'returns true if 4 elements in a row' do
+            board = Board.new
+
+            board.add_piece('A', 'X')
+            board.add_piece('B', 'X')
+            board.add_piece('C', 'X')
+            board.add_piece('D', 'X')
+
+            expect(board.four_in_a_row_by_row(board.board)).to eq true
+        end
+    end
 end
