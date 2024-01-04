@@ -12,10 +12,10 @@ RSpec.describe Board do
         it 'has a game board' do
             board = Board.new
 
-            expect(board.board).to be_a(Array)
-            expect(board.board.first).to be_a(Array)
-            expect(board.board.last).to be_a(Array)
-            expect(board.board.first[0]).to eq('.') 
+            expect(board.cells).to be_a(Array)
+            expect(board.cells.first).to be_a(Array)
+            expect(board.cells.last).to be_a(Array)
+            expect(board.cells.first[0]).to eq('.') 
         end
     end
 
@@ -25,11 +25,11 @@ RSpec.describe Board do
 
             board.add_piece('A', 'X')
 
-            expect(board.board.last[0]).to eq('X')
+            expect(board.cells.last[0]).to eq('X')
 
             board.add_piece('A', 'X')
 
-            expect(board.board[-2][0]).to eq('X')
+            expect(board.cells[-2][0]).to eq('X')
         end
 
         it 'will return nil from puts statement when a column is full' do
@@ -85,7 +85,7 @@ RSpec.describe Board do
             board.add_piece('C', 'X')
             board.add_piece('D', 'X')
 
-            expect(board.four_in_a_row_by_row(board.board)).to eq true
+            expect(board.four_in_a_row_by_row(board.cells)).to eq true
         end
     end
 
@@ -104,7 +104,7 @@ RSpec.describe Board do
             board.add_piece('D', 'O')
             board.add_piece('D', 'X')
 
-            expect(board.diagonals(board.board)).to eq([[".", ".", ".", "O", ".", "."], [".", ".", "X", "O", "."], [".", ".", "O", "O"], [".", ".", "X", ".", "."], [".", ".", ".", "."], [".", ".", "."]])
+            expect(board.diagonals(board.cells)).to eq([[".", ".", ".", "O", ".", "."], [".", ".", "X", "O", "."], [".", ".", "O", "O"], [".", ".", "X", ".", "."], [".", ".", ".", "."], [".", ".", "."]])
         end
 
         it 'rotate the board 90 degrees so we can check diagonals' do
@@ -121,7 +121,7 @@ RSpec.describe Board do
             board.add_piece('D', 'O')
             board.add_piece('D', 'X')
 
-            expect(board.diagonals(board.board.transpose.reverse)).to eq([[".", ".", ".", "O", "O", "O", nil], [".", ".", "X", "X", "X", "X"], [".", ".", ".", ".", "."], [".", ".", ".", "."], [".", ".", ".", "O", "O", nil], [".", ".", ".", "O", nil]])
+            expect(board.diagonals(board.cells.transpose.reverse)).to eq([[".", ".", ".", "O", "O", "O", nil], [".", ".", "X", "X", "X", "X"], [".", ".", ".", ".", "."], [".", ".", ".", "."], [".", ".", ".", "O", "O", nil], [".", ".", ".", "O", nil]])
         end
     end
 end
