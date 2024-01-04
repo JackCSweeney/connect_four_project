@@ -37,4 +37,28 @@ RSpec.describe Computer do
             expect(board.cells.last.concat(board.cells[-2]).count('O')).to eq(2)
         end
     end
+
+    describe '#find_win_column' do
+        it 'will find a column to win horizontally' do
+            computer = Computer.new
+            board = Board.new
+
+            board.add_piece('A', 'O')
+            board.add_piece('B', 'O')
+            board.add_piece('C', 'O')
+
+            expect(computer.find_win_column(board)).to eq('D')
+        end
+
+        it 'will find a column to win vertically' do
+            computer = Computer.new
+            board = Board.new
+
+            board.add_piece('A', 'O')
+            board.add_piece('A', 'O')
+            board.add_piece('A', 'O')
+
+            expect(computer.find_win_column(board)).to eq('A')
+        end
+    end
 end
