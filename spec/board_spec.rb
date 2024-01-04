@@ -75,4 +75,53 @@ RSpec.describe Board do
             expect(board.win?).to eq true
         end
     end
+
+    describe '#four_in_a_row_by_row' do
+        it 'returns true if 4 elements in a row' do
+            board = Board.new
+
+            board.add_piece('A', 'X')
+            board.add_piece('B', 'X')
+            board.add_piece('C', 'X')
+            board.add_piece('D', 'X')
+
+            expect(board.four_in_a_row_by_row(board.board)).to eq true
+        end
+    end
+
+    describe '#diagonals(grid)' do
+        it 'returns true if 4 elements in a row diagonally' do
+            board = Board.new
+
+            board.add_piece('A', 'X')
+            board.add_piece('B', 'O')
+            board.add_piece('B', 'X')
+            board.add_piece('C', 'O')
+            board.add_piece('C', 'O')
+            board.add_piece('C', 'X')
+            board.add_piece('D', 'O')
+            board.add_piece('D', 'O')
+            board.add_piece('D', 'O')
+            board.add_piece('D', 'X')
+
+            expect(board.diagonals(board.board)).to eq([[".", ".", ".", "O", ".", "."], [".", ".", "X", "O", "."], [".", ".", "O", "O"], [".", ".", "X", ".", "."], [".", ".", ".", "."], [".", ".", "."]])
+        end
+
+        it 'rotate the board 90 degrees so we can check diagonals' do
+            board = Board.new
+
+            board.add_piece('A', 'X')
+            board.add_piece('B', 'O')
+            board.add_piece('B', 'X')
+            board.add_piece('C', 'O')
+            board.add_piece('C', 'O')
+            board.add_piece('C', 'X')
+            board.add_piece('D', 'O')
+            board.add_piece('D', 'O')
+            board.add_piece('D', 'O')
+            board.add_piece('D', 'X')
+
+            expect(board.diagonals(board.board.transpose.reverse)).to eq([[".", ".", ".", "O", "O", "O", nil], [".", ".", "X", "X", "X", "X"], [".", ".", ".", ".", "."], [".", ".", ".", "."], [".", ".", ".", "O", "O", nil], [".", ".", ".", "O", nil]])
+        end
+    end
 end
