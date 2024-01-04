@@ -30,22 +30,12 @@ class Board
     end
 
     def win?
-        @cells.each do |row|
-            row.each_cons(4) do |group|
-                if group.join == 'XXXX' || group.join == 'OOOO'
-                    return true
-                end
-            end
-        end
-        
-        @cells.transpose.each do |row|
-            row.each_cons(4) do |group|
-                if group.join == 'XXXX' || group.join == 'OOOO'
-                    return true
-                end
-            end
-        end
+        four_in_a_row_by_row(@cells) ||
+        four_in_a_row_by_row(@cells.transpose) ||
+        four_in_a_row_by_row(diagonals(@cells)) ||
+        four_in_a_row_by_row(diagonals((@cells.transpose.reverse)))
     end
+        
 
     def four_in_a_row_by_row(cells)
         cells.each do |row|
