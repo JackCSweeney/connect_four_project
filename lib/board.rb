@@ -46,12 +46,20 @@ class Board
             end
         end
     end
+
+    def four_in_a_row_by_row(arr)
+        arr.each do |row|
+            a = row.each_cons(4).find { |a| a.uniq.size == 1 && a.first != '.' }
+            return true unless a.nil?        
+        end
+        nil
+    end
 end
 # matrix = []
         # Matrix.rows(@board).each do |row|
         #     # matrix << diagonal
         #     require 'pry';binding.pry
         # end
-        (0..3) (i=var.length; i--) do
-            (0..4) (j=another_var.length; j--)
-        end
+        # (0..3) (i=var.length; i--) do
+        #     (0..4) (j=another_var.length; j--)
+        # end
