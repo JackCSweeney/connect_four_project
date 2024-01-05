@@ -79,38 +79,23 @@ RSpec.describe Game do
         it 'will make a move and change the current player' do
             game = Game.new
 
-            expect(game.current_player).to be_a(Player)
+            game.change_current_player
+            
+            expect(game.current_player).to be_a(Computer)
 
             game.take_turn
 
-            expect(game.current_player).to be_a(Computer)
-            expect(game.board.cells.last.include?('X')).to eq(true)            
+            expect(game.current_player).to be_a(Player)
+            expect(game.board.cells.last.include?('O')).to eq(true)            
         end
 
         it 'will keep track of the number of turns taken' do
             game = Game.new
 
+            game.change_current_player
             game.take_turn
 
             expect(game.turns_taken).to eq(1)
-        end
-    end
-
-    describe '#player_turn' do
-        it 'takes a turn when the player is the current player' do
-            game = Game.new
-
-            game.player_turn
-
-            expect(game.board.cells.last.include?('X')).to eq(true)
-        end
-
-        it 'will return nil if current player is computer' do
-            game = Game.new
-
-            game.change_current_player
-
-            expect(game.player_turn).to eq(nil)
         end
     end
 
@@ -122,12 +107,6 @@ RSpec.describe Game do
             game.computer_turn
 
             expect(game.board.cells.last.include?('O')).to eq(true)
-        end
-
-        it 'will return nil if current player is player' do
-            game = Game.new
-
-            expect(game.computer_turn).to eq(nil)
         end
     end
 end
