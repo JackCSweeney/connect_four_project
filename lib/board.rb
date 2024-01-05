@@ -35,7 +35,6 @@ class Board
         four_in_a_row_by_row(diagonals(@cells)) ||
         four_in_a_row_by_row(diagonals((@cells.transpose.reverse)))
     end
-        
 
     def four_in_a_row_by_row(cells)
         cells.each do |row|
@@ -51,5 +50,9 @@ class Board
         end.concat((1..cells.first.size-4).map do |j|
             (0..cells.size-j-1).map { |i| cells[i][j+i] }
         end)
+    end
+
+    def draw?
+        !@cells[0].include?('.')
     end
 end
