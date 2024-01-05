@@ -96,5 +96,38 @@ RSpec.describe Game do
         end
     end
 
-    # describe '#player_turn' do
+    describe '#player_turn' do
+        it 'takes a turn when the player is the current player' do
+            game = Game.new
+
+            game.player_turn
+
+            expect(game.board.cells.last.include?('X')).to eq(true)
+        end
+
+        it 'will return nil if current player is computer' do
+            game = Game.new
+
+            game.change_current_player
+
+            expect(game.player_turn).to eq(nil)
+        end
+    end
+
+    describe '#computer_turn' do
+        it 'takes a turn when the computer is the current player' do
+            game = Game.new
+
+            game.change_current_player
+            game.computer_turn
+
+            expect(game.board.cells.last.include?('O')).to eq(true)
+        end
+
+        it 'will return nil if current player is player' do
+            game = Game.new
+
+            expect(game.computer_turn).to eq(nil)
+        end
+    end
 end
