@@ -2,7 +2,7 @@ require 'matrix'
 
 class Board
 
-    attr_reader :cells
+    attr_accessor :cells
 
     def initialize
         @cells = Array.new(6){Array.new(7, '.')}
@@ -42,7 +42,7 @@ class Board
             a = row.each_cons(4).find { |a| a.uniq.size == 1 && a.first != '.' }
             return true unless a.nil?        
         end
-        nil
+        false
     end
 
     def diagonals(cells)
