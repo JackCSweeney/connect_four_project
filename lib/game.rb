@@ -1,13 +1,14 @@
 require './lib/board'
 class Game
 
-    attr_reader :board, :player, :computer, :current_player
+    attr_reader :board, :player, :computer, :current_player, :turns_taken
 
     def initialize
         @board = Board.new
         @player = Player.new
         @computer = Computer.new
         @current_player = @player
+        @turns_taken = 0
     end
 
     def welcome_message
@@ -17,6 +18,54 @@ class Game
     def change_current_player
         @current_player = (@current_player == @player) ? @computer : @player
     end
+
+    def player_turn
+        puts 'Please select a column between A - G:'
+        input = gets.chomp.upcase
+
+        until @player.make_move(input, @board) != nil
+            puts 'Please select a valid column between A - G:'
+            input = gets.chomp.upcase
+        end
+        @player.make_move(input, @board)
+    end
+
+    def computer_turn
+        until @computer.make_move(@board) != nil
+            @computer.make_move(@board)
+        end
+    end
+
+    def endgame_win
+        if @board.win? && @current_player == @player
+            puts "You won!"
+        elsif @board.win? && @current_player == @computer
+            puts "You lose!"
+        end
+    end
+
+    def endgame_draw
+        if @board.draw?
+            puts "The game has ended in a draw!"
+        end
+    end
+
+    def take_turn
+        endgame_win
+        endgame_draw
+        if @current_player == @player
+            player_turn
+        else
+            computer_turn
+        end
+        @turns_taken += 1
+        change_current_player
+    end
+
+            
+
+        
+
 end
 
 # GAME FLOW
