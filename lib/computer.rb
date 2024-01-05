@@ -7,24 +7,49 @@ class Computer
     end
 
     def make_move(board)
-        columns = ('A'..'G').to_a
-        board.add_piece(columns.sample, @piece)
+        win = find_win_column(board)
+        block = find_block_column(board)
+        random = find_random_column(board)
+        
+        if win
+            board.add_piece(win, @piece)
+        elsif block
+            board.add_piece(block, @piece)
+        else
+            board.add_piece(random, @piece)
+        end
     end
 
-    # method to scan the board for 3 in a row vertically, horizontally, and diagonally of it's own piece value and for the opponent piece value
-    # 
-
-    # columns.each do |column|
-    #     add_piece(column) if add_piece(column).win?
+    def find_random_column(board)
+        columns = ('A'..'G').to_a
+        columns.sample
+    end
 
     def find_win_column(board)
         columns = ('A'..'G').to_a
-        board_copy = board.dup
-        counter = 0
-        7.times do
-            board_copy.add_piece(columns[counter], @piece)
-            return columns[counter] if board_copy.win?
-            counter += 1
+        
+        columns.each do |column|
+            board_copy = Board.new
+            board_copy.cells = board.dup.cells.map(&:dup)
+            board_copy.add_piece(column, @piece)
+
+            return column if board_copy.win?
         end
+        nil
     end
+
+    def find_block_column(board)
+        columns = ('A'..'G').to_a
+        
+        columns.each do |column|
+            board_copy = Board.new
+            board_copy.cells = board.dup.cells.map(&:dup)
+            board_copy.add_piece(column, 'X')
+
+            return column if board_copy.win?
+        end
+        nil
+    end
+
+
 end

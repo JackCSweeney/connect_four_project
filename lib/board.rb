@@ -2,7 +2,7 @@ require 'matrix'
 
 class Board
 
-    attr_reader :cells
+    attr_accessor :cells
 
     def initialize
         @cells = Array.new(6){Array.new(7, '.')}
@@ -30,21 +30,10 @@ class Board
     end
 
     def win?
-        @cells.each do |row|
-            row.each_cons(4) do |group|
-                if group.join == 'XXXX' || group.join == 'OOOO'
-                    return true
-                end
-            end
-        end
-        
-        @cells.transpose.each do |row|
-            row.each_cons(4) do |group|
-                if group.join == 'XXXX' || group.join == 'OOOO'
-                    return true
-                end
-            end
-        end
+        four_in_a_row_by_row(@cells) ||
+        four_in_a_row_by_row(@cells.transpose) ||
+        four_in_a_row_by_row(diagonals(@cells)) ||
+        four_in_a_row_by_row(diagonals((@cells.transpose.reverse)))
     end
 
     def four_in_a_row_by_row(cells)
@@ -52,7 +41,7 @@ class Board
             a = row.each_cons(4).find { |a| a.uniq.size == 1 && a.first != '.' }
             return true unless a.nil?        
         end
-        nil
+        false
     end
 
     def diagonals(cells)
@@ -61,5 +50,9 @@ class Board
         end.concat((1..cells.first.size-4).map do |j|
             (0..cells.size-j-1).map { |i| cells[i][j+i] }
         end)
+    end
+
+    def draw?
+        !@cells[0].include?('.')
     end
 end

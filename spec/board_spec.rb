@@ -74,6 +74,23 @@ RSpec.describe Board do
 
             expect(board.win?).to eq true
         end
+
+        it 'check if player or computer won the game diagonally' do
+            board = Board.new
+
+            board.add_piece('A', 'X')
+            board.add_piece('B', 'O')
+            board.add_piece('B', 'X')
+            board.add_piece('C', 'O')
+            board.add_piece('C', 'O')
+            board.add_piece('C', 'X')
+            board.add_piece('D', 'O')
+            board.add_piece('D', 'O')
+            board.add_piece('D', 'O')
+            board.add_piece('D', 'X')
+
+            expect(board.win?).to eq true
+        end
     end
 
     describe '#four_in_a_row_by_row' do
@@ -122,6 +139,73 @@ RSpec.describe Board do
             board.add_piece('D', 'X')
 
             expect(board.diagonals(board.cells.transpose.reverse)).to eq([[".", ".", ".", "O", "O", "O", nil], [".", ".", "X", "X", "X", "X"], [".", ".", ".", ".", "."], [".", ".", ".", "."], [".", ".", ".", "O", "O", nil], [".", ".", ".", "O", nil]])
+        end
+    end
+
+    describe '#draw?' do
+        it 'check if the board is full' do
+            board = Board.new
+
+            board.add_piece('A', 'X')
+            board.add_piece('A', 'X')
+            board.add_piece('A', 'X')
+            board.add_piece('A', 'O')
+            board.add_piece('A', 'X')
+            board.add_piece('A', 'X')
+            board.add_piece('B', 'O')
+            board.add_piece('B', 'O')
+            board.add_piece('B', 'O')
+            board.add_piece('B', 'X')
+            board.add_piece('B', 'O')
+            board.add_piece('B', 'X')
+            board.add_piece('C', 'X')
+            board.add_piece('C', 'O')
+            board.add_piece('C', 'X')
+            board.add_piece('C', 'X')
+            board.add_piece('C', 'X')
+            board.add_piece('C', 'O')
+            board.add_piece('D', 'X')
+            board.add_piece('D', 'O')
+            board.add_piece('D', 'X')
+            board.add_piece('D', 'X')
+            board.add_piece('D', 'X')
+            board.add_piece('D', 'O')
+            board.add_piece('E', 'O')
+            board.add_piece('E', 'X')
+            board.add_piece('E', 'O')
+            board.add_piece('E', 'O')
+            board.add_piece('E', 'O')
+            board.add_piece('E', 'X')
+            board.add_piece('F', 'O')
+            board.add_piece('F', 'O')
+            board.add_piece('F', 'X')
+            board.add_piece('F', 'O')
+            board.add_piece('F', 'X')
+            board.add_piece('F', 'X')
+            board.add_piece('G', 'O')
+            board.add_piece('G', 'O')
+            board.add_piece('G', 'X')
+            board.add_piece('G', 'O')
+            board.add_piece('G', 'X')
+            board.add_piece('G', 'O')
+
+            expect(board.draw?).to eq(true)
+        end
+
+        it 'returns false if no draw' do
+            board = Board.new
+
+            expect(board.draw?).to eq(false)
+        end
+
+        it 'returns false if there is space left on the board' do
+            board = Board.new
+            
+            board.add_piece('B', 'X')
+            board.add_piece('A', 'X')
+            board.add_piece('C', 'X')
+           
+            expect(board.draw?).to eq(false)
         end
     end
 end
