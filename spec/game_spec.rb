@@ -33,6 +33,12 @@ RSpec.describe Game do
 
             expect(game.current_player).to be_a(Player)
         end
+
+        it 'starts with 0 turns taken' do
+            game = Game.new
+
+            expect(game.turns_taken).to eq(0)
+        end
     end
 
     describe '#welcome_message' do
@@ -43,7 +49,7 @@ RSpec.describe Game do
         end
     end
 
-    describe '#change_current_player' do
+    describe '#change_current_player & #current_player' do
         it 'will change current player from player to computer' do
             game = Game.new
 
@@ -68,4 +74,27 @@ RSpec.describe Game do
             expect(game.current_player).to be_a(Player)
         end
     end
+
+    describe '#take_turn' do
+        it 'will make a move and change the current player' do
+            game = Game.new
+
+            expect(game.current_player).to be_a(Player)
+
+            game.take_turn
+
+            expect(game.current_player).to be_a(Computer)
+            expect(game.board.cells.last.include?('X')).to eq(true)            
+        end
+
+        it 'will keep track of the number of turns taken' do
+            game = Game.new
+
+            game.take_turn
+
+            expect(game.turns_taken).to eq(1)
+        end
+    end
+
+    # describe '#player_turn' do
 end
