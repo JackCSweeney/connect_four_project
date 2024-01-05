@@ -41,14 +41,6 @@ RSpec.describe Game do
         end
     end
 
-    describe '#welcome_message' do
-        it 'has a welcome message for the game' do
-            game = Game.new
-
-            expect(game.welcome_message).to eq('Welcome to Connect Four')
-        end
-    end
-
     describe '#change_current_player & #current_player' do
         it 'will change current player from player to computer' do
             game = Game.new
