@@ -9,8 +9,11 @@ class Board
     end
 
     def display
+        puts '-------------'
         puts 'A B C D E F G'
+        puts '============='
         @cells.each {|row| puts row.join(' ')}
+        puts '-------------'
     end
 
     def add_piece(column, piece)
