@@ -175,4 +175,33 @@ RSpec.describe Computer do
             expect(board.cells.last.include?('O')).to eq(true)
         end
     end
+
+    describe '#find_column' do
+        it 'will find a win column' do
+            computer = Computer.new
+            board = Board.new
+
+            board.add_piece('A', 'X')
+            board.add_piece('A', 'X')
+            board.add_piece('A', 'X')
+            board.add_piece('B', 'O')
+            board.add_piece('B', 'O')
+            board.add_piece('B', 'O')
+
+            expect(computer.find_column('O', board)).to eq('B')
+        end
+
+        it 'will find a blocking column' do
+            computer = Computer.new
+            board = Board.new
+
+            board.add_piece('A', 'X')
+            board.add_piece('A', 'X')
+            board.add_piece('A', 'X')
+            board.add_piece('B', 'O')
+            board.add_piece('B', 'O')
+
+            expect(computer.find_column('X', board)).to eq('A')
+        end
+    end
 end
