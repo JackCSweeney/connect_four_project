@@ -1,3 +1,5 @@
+require 'simplecov'
+SimpleCov.start
 require './lib/board'
 require 'pry'
 
@@ -17,6 +19,14 @@ RSpec.describe Board do
             expect(board.cells.last).to be_a(Array)
             expect(board.cells.first[0]).to eq('.') 
             expect(board.cells.last[0]).to eq('.') 
+        end
+    end
+
+    describe '#display' do
+        it 'display the board to the console and returns nil for being a puts statement' do
+            board = Board.new
+
+            expect(board.display).to eq(nil)
         end
     end
 
