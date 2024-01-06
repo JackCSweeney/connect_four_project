@@ -151,4 +151,61 @@ RSpec.describe Game do
             expect(game.endgame_win?).to eq(false)
         end
     end
+
+    describe '#endgame_draw?' do
+        it 'returns true if it is a draw game' do
+            game = Game.new
+
+            game.board.add_piece('A', 'X')
+            game.board.add_piece('A', 'X')
+            game.board.add_piece('A', 'X')
+            game.board.add_piece('A', 'O')
+            game.board.add_piece('A', 'X')
+            game.board.add_piece('A', 'X')
+            game.board.add_piece('B', 'O')
+            game.board.add_piece('B', 'O')
+            game.board.add_piece('B', 'O')
+            game.board.add_piece('B', 'X')
+            game.board.add_piece('B', 'O')
+            game.board.add_piece('B', 'X')
+            game.board.add_piece('C', 'X')
+            game.board.add_piece('C', 'O')
+            game.board.add_piece('C', 'X')
+            game.board.add_piece('C', 'X')
+            game.board.add_piece('C', 'X')
+            game.board.add_piece('C', 'O')
+            game.board.add_piece('D', 'X')
+            game.board.add_piece('D', 'O')
+            game.board.add_piece('D', 'X')
+            game.board.add_piece('D', 'X')
+            game.board.add_piece('D', 'X')
+            game.board.add_piece('D', 'O')
+            game.board.add_piece('E', 'O')
+            game.board.add_piece('E', 'X')
+            game.board.add_piece('E', 'O')
+            game.board.add_piece('E', 'O')
+            game.board.add_piece('E', 'O')
+            game.board.add_piece('E', 'X')
+            game.board.add_piece('F', 'O')
+            game.board.add_piece('F', 'O')
+            game.board.add_piece('F', 'X')
+            game.board.add_piece('F', 'O')
+            game.board.add_piece('F', 'X')
+            game.board.add_piece('F', 'X')
+            game.board.add_piece('G', 'O')
+            game.board.add_piece('G', 'O')
+            game.board.add_piece('G', 'X')
+            game.board.add_piece('G', 'O')
+            game.board.add_piece('G', 'X')
+            game.board.add_piece('G', 'O')
+
+            expect(game.endgame_draw?).to eq(true)
+        end
+
+        it 'returns false if it is not a draw game' do
+            game = Game.new
+
+            expect(game.endgame_draw?).to eq (false)
+        end
+    end
 end
