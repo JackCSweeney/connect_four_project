@@ -41,6 +41,17 @@ RSpec.describe Game do
         end
     end
 
+    describe '#make_new_board' do
+        it 'create a new board when game over and player selects play again' do
+            game = Game.new
+
+            board_1 = game.board
+            board_2 = game.make_new_board
+
+            expect(board_1).to_not eq(board_2)
+        end
+    end
+
     describe '#change_current_player & #current_player' do
         it 'will change current player from player to computer' do
             game = Game.new
