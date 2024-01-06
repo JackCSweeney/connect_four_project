@@ -16,6 +16,7 @@ class Game
 
     def make_new_board
         @board = Board.new
+        @current_player = @player
     end
 
     def welcome_message
@@ -52,28 +53,35 @@ class Game
 
     def take_turn
         loop do
-                if @current_player == @player
-                    @board.display
-                    player_turn
-                else
-                    computer_turn
-                end
-                @turns_taken += 1
-                    if endgame_win && @current_player == @player
-                        puts "You won in a total of #{@turns_taken} turns!"
-                        @board.display
-                        break
-                    elsif endgame_win && @current_player == @computer
-                        puts "You lose!"
-                        @board.display
-                        break
-                    elsif endgame_draw
-                        puts "The game has ended in a draw!"
-                        break 
-                    end
-                change_current_player
+            player_selector
+                
+            @turns_taken += 1
+            if endgame_win && @current_player == @player
+                puts "You won in a total of #{@turns_taken} turns!"
+                @board.display
+                break
+            elsif endgame_win && @current_player == @computer
+                puts "You lose!"
+                @board.display
+                break
+            elsif endgame_draw
+                puts "The game has ended in a draw!"
+                break 
             end
+            
+            change_current_player
+        end
+        
         play_game
+    end
+
+    def player_selector
+        if @current_player == @player
+            @board.display
+            player_turn
+        else
+            computer_turn
+        end
     end
 
     def main_menu
@@ -86,16 +94,16 @@ class Game
         welcome_message
         play_input = main_menu
         loop do
-            case play_input
-                when 'P'
-                    take_turn
-                when 'Q'
-                    puts 'Goodbye!'
-                    break
-                else
-                    puts 'Please select a valid option'
-                    play_input = main_menu
-                end
+        case play_input
+            when 'P'
+                take_turn
+            when 'Q'
+                puts 'Goodbye!'
+                break
+            else
+                puts 'Please select a valid option'
+                play_input = main_menu
             end
         end
+    end
 end
