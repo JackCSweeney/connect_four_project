@@ -114,4 +114,41 @@ RSpec.describe Game do
             expect(game.board.cells.last.include?('O')).to eq(true)
         end
     end
+
+    describe '#endgame_win' do
+        it 'returns true if game over and player won' do
+            game = Game.new
+
+            game.board.add_piece('A', 'X')
+            game.board.add_piece('A', 'X')
+            game.board.add_piece('A', 'X')
+            game.board.add_piece('A', 'X')
+
+            expect(game.endgame_win?).to eq(true)
+        end
+
+        it 'returns true if game over and computer won' do
+            game = Game.new
+
+            game.board.add_piece('A', 'O')
+            game.board.add_piece('A', 'O')
+            game.board.add_piece('A', 'O')
+            game.board.add_piece('A', 'O')
+
+            expect(game.endgame_win?).to eq(true)
+        end
+
+        it 'returns false if no one wins' do
+            game = Game.new
+
+            game.board.add_piece('A', 'X')
+            game.board.add_piece('A', 'X')
+            game.board.add_piece('A', 'X')
+            game.board.add_piece('B', 'O')
+            game.board.add_piece('B', 'O')
+            game.board.add_piece('B', 'O')
+
+            expect(game.endgame_win?).to eq(false)
+        end
+    end
 end
