@@ -26,30 +26,24 @@ class Computer
     end
 
     def find_win_column(board)
-        columns = ('A'..'G').to_a
-        
-        columns.each do |column|
-            board_copy = Board.new
-            board_copy.cells = board.dup.cells.map(&:dup)
-            board_copy.add_piece(column, @piece)
-
-            return column if board_copy.win?
-        end
-        nil
+        piece = @piece
+        find_column(piece, board)
     end
 
     def find_block_column(board)
+        piece = 'X'
+        find_column(piece, board)
+    end
+
+    def find_column(piece, board)
         columns = ('A'..'G').to_a
-        
         columns.each do |column|
             board_copy = Board.new
             board_copy.cells = board.dup.cells.map(&:dup)
-            board_copy.add_piece(column, 'X')
+            board_copy.add_piece(column, piece)
 
             return column if board_copy.win?
         end
         nil
     end
-
-
 end
