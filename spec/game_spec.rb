@@ -52,7 +52,7 @@ RSpec.describe Game do
         end
     end
 
-    describe '#change_current_player & #current_player' do
+    describe '#change_current_player' do
         it 'will change current player from player to computer' do
             game = Game.new
 
@@ -78,7 +78,7 @@ RSpec.describe Game do
         end
     end
 
-    # The below tests for take turn pass, however the method does initiate the game to start and interrupts RSpec.
+    # The below tests for take turn pass. The initial approach was to check if changed the current player when called and also add to the turns_taken instance variable. However the method does initiate the game to start and interrupts RSpec. We decided to leave it here for documentation.
 
     # describe '#take_turn' do
     #     it 'will make a move and change the current player' do
@@ -105,7 +105,7 @@ RSpec.describe Game do
     # end
 
     describe '#computer_turn' do
-        it 'takes a turn when the computer is the current player' do
+        it 'takes a turn and adds a piece to the board when the computer is the current player' do
             game = Game.new
 
             game.change_current_player
