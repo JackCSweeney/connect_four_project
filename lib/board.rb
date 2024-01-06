@@ -18,6 +18,7 @@ class Board
 
     def add_piece(column, piece)
         range = ("A".."G").to_a
+        
         if range.any?(column)
             chosen_column = ('A'..'G').to_a.index(column)
             rows = cells.length - 1
@@ -48,10 +49,16 @@ class Board
     end
 
     def diagonals(cells)
-        (0..cells.size-4).map do |i|
-            (0..cells.size-1-i).map { |j| cells[i+j][j] }
-        end.concat((1..cells.first.size-4).map do |j|
-            (0..cells.size-j-1).map { |i| cells[i][j+i] }
+        diagonals_right_to_left = (0..cells.size-4).map do |i|
+            (0..cells.size-1-i).map do |j|
+                cells[i+j][j]
+            end
+        end
+
+        diagonals_right_to_left.concat((1..cells.first.size-4).map do |j|
+            (0..cells.size-j-1).map do |i|
+                cells[i][j+i]
+            end
         end)
     end
 
