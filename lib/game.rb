@@ -43,11 +43,11 @@ class Game
         end
     end
 
-    def endgame_win
+    def endgame_win?
         @board.win?
     end
 
-    def endgame_draw
+    def endgame_draw?
         @board.draw?
     end
 
@@ -56,15 +56,15 @@ class Game
             player_selector
                 
             @turns_taken += 1
-            if endgame_win && @current_player == @player
+            if endgame_win? && @current_player == @player
                 puts "You won in a total of #{@turns_taken} turns!"
                 @board.display
                 break
-            elsif endgame_win && @current_player == @computer
+            elsif endgame_win? && @current_player == @computer
                 puts "You lose!"
                 @board.display
                 break
-            elsif endgame_draw
+            elsif endgame_draw?
                 puts "The game has ended in a draw!"
                 break 
             end
