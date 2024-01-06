@@ -208,4 +208,16 @@ RSpec.describe Game do
             expect(game.endgame_draw?).to eq (false)
         end
     end
+
+    describe '#player_selector' do
+        it 'will make the computer take turn when computer is the current player' do
+            game = Game.new
+
+            game.change_current_player
+
+            game.player_selector
+
+            expect(game.board.cells.last.include?('O')).to eq(true)
+        end
+    end
 end
