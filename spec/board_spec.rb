@@ -16,6 +16,7 @@ RSpec.describe Board do
             expect(board.cells.first).to be_a(Array)
             expect(board.cells.last).to be_a(Array)
             expect(board.cells.first[0]).to eq('.') 
+            expect(board.cells.last[0]).to eq('.') 
         end
     end
 
@@ -30,6 +31,18 @@ RSpec.describe Board do
             board.add_piece('A', 'X')
 
             expect(board.cells[-2][0]).to eq('X')
+        end
+
+        it 'can add a piece to the additional columns' do
+            board = Board.new
+
+            board.add_piece('A', 'X')
+
+            expect(board.cells.last[0]).to eq('X')
+
+            board.add_piece('B', 'X')
+
+            expect(board.cells.last[1]).to eq('X')
         end
 
         it 'will return nil from puts statement when a column is full' do
@@ -75,7 +88,7 @@ RSpec.describe Board do
             expect(board.win?).to eq true
         end
 
-        it 'check if player or computer won the game diagonally' do
+        it 'check if player or computer won the game diagonally bottom left to top right' do
             board = Board.new
 
             board.add_piece('A', 'X')
@@ -87,6 +100,23 @@ RSpec.describe Board do
             board.add_piece('D', 'O')
             board.add_piece('D', 'O')
             board.add_piece('D', 'O')
+            board.add_piece('D', 'X')
+
+            expect(board.win?).to eq true
+        end
+
+        it 'check if player or computer won the game diagonally top left to bottom right' do
+            board = Board.new
+
+            board.add_piece('A', 'O')
+            board.add_piece('A', 'O')
+            board.add_piece('A', 'O')
+            board.add_piece('A', 'X')
+            board.add_piece('B', 'O')
+            board.add_piece('B', 'O')
+            board.add_piece('B', 'X')
+            board.add_piece('C', 'O')
+            board.add_piece('C', 'X')
             board.add_piece('D', 'X')
 
             expect(board.win?).to eq true
@@ -103,6 +133,51 @@ RSpec.describe Board do
             board.add_piece('D', 'X')
 
             expect(board.four_in_a_row_by_row(board.cells)).to eq true
+        end
+
+        it 'returns true if 4 elements in a row vertically' do
+            board = Board.new
+
+            board.add_piece('A', 'X')
+            board.add_piece('A', 'X')
+            board.add_piece('A', 'X')
+            board.add_piece('A', 'X')
+
+            expect(board.four_in_a_row_by_row(board.cells.transpose)).to eq true
+        end
+
+        it 'returns true if 4 elements in a row diagonally bottom left to top right' do
+            board = Board.new
+
+            board.add_piece('A', 'X')
+            board.add_piece('B', 'O')
+            board.add_piece('B', 'X')
+            board.add_piece('C', 'O')
+            board.add_piece('C', 'O')
+            board.add_piece('C', 'X')
+            board.add_piece('D', 'O')
+            board.add_piece('D', 'O')
+            board.add_piece('D', 'O')
+            board.add_piece('D', 'X')
+
+            expect(board.four_in_a_row_by_row(board.diagonals(board.cells.transpose.reverse))).to eq true
+        end
+
+        it 'returns true if 4 elements in a row diagonally top left to bottom right' do
+            board = Board.new
+
+            board.add_piece('A', 'O')
+            board.add_piece('A', 'O')
+            board.add_piece('A', 'O')
+            board.add_piece('A', 'X')
+            board.add_piece('B', 'O')
+            board.add_piece('B', 'O')
+            board.add_piece('B', 'X')
+            board.add_piece('C', 'O')
+            board.add_piece('C', 'X')
+            board.add_piece('D', 'X')
+
+            expect(board.four_in_a_row_by_row(board.diagonals(board.cells))).to eq true
         end
     end
 
