@@ -1,3 +1,6 @@
+### How to play
+In your terminal, after cloning or forking this repository, and cd into it, run `ruby lib/runner.rb` to run the game.
+
 ### Project Reflection
 
 1. This project did not provide an interaction pattern. How did you approach the design and problem solving process for this project?
